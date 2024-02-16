@@ -1,0 +1,36 @@
+#caculator{
+    background-color: rgb(42, 42, 42);
+    width: 320;
+    height: 480;
+    border-radius: 5px;
+}
+
+#resultsScreen{
+    background-color: rgb(245, 250, 228);
+    width: 320px;
+    height: 17%;
+    border-radius: 1px;
+    background: linear-gradient(to bottom,rgb(239, 239, 239) 0%,rgb(245, 250, 228)30%,rgb(245, 250, 228)80%,rgb(243, 243, 243) 100%);
+}
+
+#buttonsContainer{
+    margin-top: 20px;
+}
+.buttons{
+    
+    width:50px;
+    height: 40px;
+    background-color: black;
+    display: flex;
+    color: whitesmoke;
+    border-radius: 7px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.row1{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+}
