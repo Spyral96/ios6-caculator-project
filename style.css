@@ -55,7 +55,7 @@
     font-weight: bolder;
 }
 
-#equalButton{
+#equalsButton{
     height: 120px ;
     background-color: orange;
     background: linear-gradient(rgba(252,188,134,255)0%,rgba(244,127,28,255)23%,rgba(245,128,30,255)60%,rgba(238,121,21,255)80%, rgba(189,88,15,255)100%);
