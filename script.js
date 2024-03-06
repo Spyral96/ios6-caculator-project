@@ -131,22 +131,15 @@ function capAmountOfNumbers ()
 //Operator Functions
 let secondNum="";
 let operatorInUse = "";
+let numbers = [];
+
 
 function addOperator()
 {
-    totalOperatorClicked ++;
-
-    if (totalOperatorClicked <= 1)
-    {
+    equalsButtonClickedMoreThanOnce = false;
+    equalsButtonClicked = false;
     secondNum = secondNum + currentNum;
     currentNum ="";
-    
-    }
-
-    else if (totalOperatorClicked >= 2)
-    {
-        runOffCaculationMode = true;
-    }
 }
 
 multButton.addEventListener('click',function()
@@ -192,17 +185,21 @@ addButton.addEventListener('click',function()
 
 //So We can add more operators without erroring out(ex 5+5= 10 then -1) NOTE THIS IS NOT 5+5 update -1. the user needs to hit the equals sign.
 multipleOperators = false;
+equalsButtonClicked = false;
+//so if the user spams the equals button it does not error out
+equalsButtonClickedMoreThanOnce = false;
 let resultNum = "";
 equalsButton.addEventListener('click',function()
 {
     //reset total clicks becuase we are not doing run off caculuations. We are using ='s. CHECK LINE 296
-    totalOperatorClicked = 0;
+    
+    equalsButtonClicked = true;
 
 
     switch (operatorInUse) {
         case "x":
 
-            if(multipleOperators === false && runOffCaculationMode === false)
+            if(multipleOperators === false && equalsButtonClicked === true && equalsButtonClickedMoreThanOnce ===false)
             {   
                 resultNum = parseInt(currentNum) * parseInt(secondNum);
                 currentNum = "";
@@ -210,18 +207,21 @@ equalsButton.addEventListener('click',function()
                 userOutput.textContent = resultNum.toString().substring(0,11);
                 console.log(resultNum)
                 multipleOperators = true;
+                equalsButtonClickedMoreThanOnce = true;
             }
 
-            else if(multipleOperators === true && runOffCaculationMode === false)
+            else if(multipleOperators === true && runOffCaculationMode === false &&equalsButtonClickedMoreThanOnce === false)
             {
                 resultNum = parseInt(currentNum) * parseInt(resultNum);
                 currentNum = "";
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
-                console.log(resultNum)
+                console.log(resultNum);
+                equalsButtonClickedMoreThanOnce = true;
+
                 
             }
-            
+            else{};
         break;
 
         case "÷":
@@ -261,6 +261,7 @@ equalsButton.addEventListener('click',function()
                 
                 }
             }
+            else{};
         break;
 
         case "+":
@@ -280,6 +281,7 @@ equalsButton.addEventListener('click',function()
             secondNum = "";
             userOutput.textContent = resultNum.toString().substring(0,11);
             }
+            else{};
         break;
 
         case "-":
@@ -289,6 +291,7 @@ equalsButton.addEventListener('click',function()
             currentNum = "";
             secondNum = "";
             userOutput.textContent = resultNum.toString().substring(0,11);
+            //After the equation is done we can add operators to our answer
             multipleOperators = true;
             }
             else if (multipleOperators === true && runOffCaculationMode === false)
@@ -298,6 +301,7 @@ equalsButton.addEventListener('click',function()
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);   
             }
+            else{};
         break;
 
         case "":
@@ -333,7 +337,7 @@ function doRunOffCaculations()
         
 
         case "x":
-        if (totalOperatorClicked === 2)
+        if (equalsButtonClicked === false && secondNum !== "")
         {
             resultNum = parseInt(currentNum) * parseInt(secondNum); 
              userOutput.textContent = resultNum.toString().substring(0,11);
@@ -400,6 +404,9 @@ function doRunOffCaculations()
                 userOutput.textContent = resultNum.toString().substring(0,11);  
             }
             else {userOutput.textContent = currentNum.toString().substring(0,11);}
+        break;
+
+        case"":
         break;
     }
 }
