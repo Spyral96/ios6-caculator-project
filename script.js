@@ -139,7 +139,6 @@ function addOperator()
     if (totalOperatorClicked <= 1)
     {
     secondNum = secondNum + currentNum;
-    currentNum ="";
     
     }
 
