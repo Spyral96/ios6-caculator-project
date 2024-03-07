@@ -28,13 +28,14 @@ let divideButton = document.getElementById('divideButton');
 let minusButton = document.getElementById('minusButton');
 let addButton = document.getElementById('addButton');
 
-
-
+//See if digits are pressed.So we can sequence and prevent errors
+let digitClicked;
 oneButton.addEventListener('click',function()
 {
     typedInNum = "1";
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 twoButton.addEventListener('click',function()
@@ -42,6 +43,7 @@ twoButton.addEventListener('click',function()
     typedInNum = "2"
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 threeButton.addEventListener('click',function()
@@ -49,6 +51,7 @@ threeButton.addEventListener('click',function()
     typedInNum = "3"
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 fourButton.addEventListener('click',function()
@@ -56,6 +59,7 @@ fourButton.addEventListener('click',function()
     typedInNum = "4"
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 fiveButton.addEventListener('click',function()
@@ -63,6 +67,7 @@ fiveButton.addEventListener('click',function()
     typedInNum = "5"
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 sixButton.addEventListener('click',function()
@@ -70,6 +75,7 @@ sixButton.addEventListener('click',function()
     typedInNum = "6"
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 sevenButton.addEventListener('click',function()
@@ -77,6 +83,7 @@ sevenButton.addEventListener('click',function()
     typedInNum = "7"
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 eightButton.addEventListener('click',function()
@@ -84,6 +91,7 @@ eightButton.addEventListener('click',function()
     typedInNum = "8"
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 nineButton.addEventListener('click',function()
@@ -91,6 +99,7 @@ nineButton.addEventListener('click',function()
     typedInNum = "9"
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 zeroButton.addEventListener('click',function()
@@ -98,6 +107,7 @@ zeroButton.addEventListener('click',function()
     typedInNum = "0"
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
+    digitClicked = true;
 });
 
 //CLEAR ALL RESET
@@ -112,6 +122,7 @@ clearButton.addEventListener('click',function()
     runOffCaculationMode = false;
     equalsButtonClicked = false;
     equalsButtonClickedMoreThanOnce = false;
+    digitClicked = false;
 });
 
 
@@ -130,7 +141,7 @@ function capAmountOfNumbers ()
     }
 }
 
-//Operator Functions
+//Operator Functions///////////////////////////
 let secondNum="";
 let operatorInUse = "";
 
@@ -139,6 +150,7 @@ function addOperator()
     totalOperatorClicked ++;
     equalsButtonClickedMoreThanOnce = false;
     equalsButtonClicked = false;
+    digitClicked = false;
 
     if (totalOperatorClicked <= 1)
     {
@@ -210,6 +222,15 @@ equalsButton.addEventListener('click',function()
     totalOperatorClicked = 0;
     equalsButtonClicked = true;
 
+
+    //TEST
+    console.log(totalOperatorClicked) + " is total times operators have been clicked";
+    console.log(currentNum + "  is current number selcted");
+    console.log(secondNum + " is sec Number");
+    console.log(resultNum +" is the result");
+    console.log("runOFFCAC is " +runOffCaculationMode);
+    console.log("digitCLicked is " + digitClicked);
+
     switch (operatorInUse) {
         case "x":
 
@@ -224,13 +245,13 @@ equalsButton.addEventListener('click',function()
                 equalsButtonClickedMoreThanOnce = true;
             }
 
-            else if(multipleOperators === true && runOffCaculationMode === false &&equalsButtonClickedMoreThanOnce === false)
+            else if(multipleOperators === true && runOffCaculationMode === false &&equalsButtonClickedMoreThanOnce === false && digitClicked === true)
             {
                 resultNum = parseInt(currentNum) * parseInt(resultNum);
                 currentNum = "";
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
-                console.log(resultNum)
+                digitClicked = false;
                 
             }
             
@@ -253,8 +274,9 @@ equalsButton.addEventListener('click',function()
                 multipleOperators = true;
                 }
                 equalsButtonClickedMoreThanOnce = true;
+                
             }
-            else if (multipleOperators === true && runOffCaculationMode === false &&equalsButtonClickedMoreThanOnce === false)
+            else if (multipleOperators === true && runOffCaculationMode === false &&equalsButtonClickedMoreThanOnce === false && digitClicked === true)
             {
                 if(currentNum === "0")
                 {
@@ -263,6 +285,7 @@ equalsButton.addEventListener('click',function()
                     currentNum = "";
                     secondNum = "";
                     multipleOperators = false;
+                    digitClicked = false;
                 }
                 else 
                 {
@@ -271,6 +294,7 @@ equalsButton.addEventListener('click',function()
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
                 console.log(resultNum);
+                digitClicked = false;
                 
                 }
                 
@@ -288,12 +312,13 @@ equalsButton.addEventListener('click',function()
             equalsButtonClickedMoreThanOnce = true;
             }
 
-            else if (multipleOperators === true && runOffCaculationMode === false && equalsButtonClickedMoreThanOnce === false) 
+            else if (multipleOperators === true && runOffCaculationMode === false && equalsButtonClickedMoreThanOnce === false && digitClicked === true) 
             {
             resultNum = parseInt(currentNum) + parseInt(resultNum);
             currentNum = "";
             secondNum = "";
             userOutput.textContent = resultNum.toString().substring(0,11);
+            digitClicked = false;
             }
         break;
 
@@ -307,12 +332,13 @@ equalsButton.addEventListener('click',function()
             multipleOperators = true;
             equalsButtonClickedMoreThanOnce = true;
             }
-            else if (multipleOperators === true && runOffCaculationMode === false && equalsButtonClickedMoreThanOnce === false)
+            else if (multipleOperators === true && runOffCaculationMode === false && equalsButtonClickedMoreThanOnce === false && digitClicked === true)
             {
                 resultNum = parseInt(resultNum) - parseInt(currentNum);
                 currentNum = "";
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);   
+                digitClicked = false;
             }
         break;
 
@@ -336,12 +362,14 @@ let runOffCaculationMode = false;
 
 function doRunOffCaculations()
 {
-    
-    console.log(totalOperatorClicked) + " is total";
-    console.log(currentNum + "  is current");
-    console.log(secondNum + " is sec Num");
-    console.log(resultNum +" is results");
-    console.log(runOffCaculationMode);
+    //TEST
+    console.log("this is for run off cacs")
+    console.log(totalOperatorClicked) + " is total times operators have been clicked";
+    console.log(currentNum + "  is current number selcted");
+    console.log(secondNum + " is sec Number");
+    console.log(resultNum +" is the result");
+    console.log("runOFFCAC is " +runOffCaculationMode);
+    console.log("digitCLicked is " + digitClicked);
     
 
     switch (operatorInUse)
@@ -349,14 +377,14 @@ function doRunOffCaculations()
         
 
         case "x":
-        if (totalOperatorClicked === 2)
+        if (totalOperatorClicked === 2 && equalsButtonClicked === false)
         {
             resultNum = parseInt(currentNum) * parseInt(secondNum); 
              userOutput.textContent = resultNum.toString().substring(0,11);
             currentNum = "";
 
         }
-        else if(totalOperatorClicked >= 3)
+        else if(totalOperatorClicked >= 3 && equalsButtonClicked === false)
         {
             resultNum = parseInt(currentNum) * parseInt(resultNum);        
             userOutput.textContent = resultNum.toString().substring(0,11);  
@@ -419,3 +447,10 @@ function doRunOffCaculations()
         break;
     }
 }
+
+
+
+
+
+//TESTING
+console.log("digitCLicked is " + digitClicked);
