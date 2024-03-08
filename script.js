@@ -27,6 +27,8 @@ let multButton = document.getElementById('multButton');
 let divideButton = document.getElementById('divideButton');
 let minusButton = document.getElementById('minusButton');
 let addButton = document.getElementById('addButton');
+//Decimal
+let decimalButton = document.getElementById('decimalButton')
 
 //See if digits are pressed.So we can sequence and prevent errors
 let digitClicked;
@@ -109,6 +111,17 @@ zeroButton.addEventListener('click',function()
     capAmountOfNumbers ();
     digitClicked = true;
 });
+
+//Decimal button Function
+decimalButton.addEventListener('click',function()
+{
+    typedInNum = ".";
+    currentNum = currentNum + typedInNum;
+    capAmountOfNumbers ();
+    digitClicked = true;
+
+});
+
 
 //CLEAR ALL RESET
 /////////////////////////////////////////////////
@@ -236,7 +249,7 @@ equalsButton.addEventListener('click',function()
 
             if(multipleOperators === false && runOffCaculationMode === false && equalsButtonClicked=== true && equalsButtonClickedMoreThanOnce === false)
             {   
-                resultNum = parseInt(currentNum) * parseInt(secondNum);
+                resultNum = parseFloat(currentNum) * parseFloat(secondNum);
                 currentNum = "";
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
@@ -247,7 +260,7 @@ equalsButton.addEventListener('click',function()
 
             else if(multipleOperators === true && runOffCaculationMode === false &&equalsButtonClickedMoreThanOnce === false && digitClicked === true)
             {
-                resultNum = parseInt(currentNum) * parseInt(resultNum);
+                resultNum = parseFloat(currentNum) * parseFloat(resultNum);
                 currentNum = "";
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
@@ -267,7 +280,7 @@ equalsButton.addEventListener('click',function()
                     currentNum = "";
                     secondNum = "";
                 }
-                else {resultNum = parseInt(secondNum)/ parseInt(currentNum);
+                else {resultNum = parseFloat(secondNum)/ parseFloat(currentNum);
                 currentNum = "";
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
@@ -289,7 +302,7 @@ equalsButton.addEventListener('click',function()
                 }
                 else 
                 {
-                resultNum = parseInt(resultNum)/ parseInt(currentNum);
+                resultNum = parseFloat(resultNum)/ parseFloat(currentNum);
                 currentNum = "";
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
@@ -304,7 +317,7 @@ equalsButton.addEventListener('click',function()
         case "+":
             if (multipleOperators === false && runOffCaculationMode === false && equalsButtonClicked === true && equalsButtonClickedMoreThanOnce === false)
             {
-            resultNum = parseInt(currentNum) + parseInt(secondNum);
+            resultNum = parseFloat(currentNum) + parseFloat(secondNum);
             currentNum = "";
             secondNum = "";
             userOutput.textContent = resultNum.toString().substring(0,11);
@@ -314,7 +327,7 @@ equalsButton.addEventListener('click',function()
 
             else if (multipleOperators === true && runOffCaculationMode === false && equalsButtonClickedMoreThanOnce === false && digitClicked === true) 
             {
-            resultNum = parseInt(currentNum) + parseInt(resultNum);
+            resultNum = parseFloat(currentNum) + parseFloat(resultNum);
             currentNum = "";
             secondNum = "";
             userOutput.textContent = resultNum.toString().substring(0,11);
@@ -325,7 +338,7 @@ equalsButton.addEventListener('click',function()
         case "-":
             if(multipleOperators === false && runOffCaculationMode === false && equalsButtonClicked === true && equalsButtonClickedMoreThanOnce === false)
             {    
-            resultNum = parseInt(secondNum) - parseInt(currentNum);
+            resultNum = parseFloat(secondNum) - parseFloat(currentNum);
             currentNum = "";
             secondNum = "";
             userOutput.textContent = resultNum.toString().substring(0,11);
@@ -334,7 +347,7 @@ equalsButton.addEventListener('click',function()
             }
             else if (multipleOperators === true && runOffCaculationMode === false && equalsButtonClickedMoreThanOnce === false && digitClicked === true)
             {
-                resultNum = parseInt(resultNum) - parseInt(currentNum);
+                resultNum = parseFloat(resultNum) - parseFloat(currentNum);
                 currentNum = "";
                 secondNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);   
@@ -364,12 +377,13 @@ function doRunOffCaculations()
 {
     //TEST
     console.log("this is for run off cacs")
-    console.log(totalOperatorClicked) + " is total times operators have been clicked";
+    console.log(totalOperatorClicked + " is total times operators have been clicked");
     console.log(currentNum + "  is current number selcted");
     console.log(secondNum + " is sec Number");
     console.log(resultNum +" is the result");
     console.log("runOFFCAC is " +runOffCaculationMode);
     console.log("digitCLicked is " + digitClicked);
+    console.log("")
     
 
     switch (operatorInUse)
@@ -379,31 +393,31 @@ function doRunOffCaculations()
         case "x":
         if (totalOperatorClicked === 2 && equalsButtonClicked === false)
         {
-            resultNum = parseInt(currentNum) * parseInt(secondNum); 
+            resultNum = parseFloat(currentNum) * parseFloat(secondNum); 
              userOutput.textContent = resultNum.toString().substring(0,11);
             currentNum = "";
 
         }
-        else if(totalOperatorClicked >= 3 && equalsButtonClicked === false)
+        else if(totalOperatorClicked >= 3 && equalsButtonClicked === false )
         {
-            resultNum = parseInt(currentNum) * parseInt(resultNum);        
+            resultNum = parseFloat(currentNum) * parseFloat(resultNum);        
             userOutput.textContent = resultNum.toString().substring(0,11);  
             currentNum = "";
         }
-        else {userOutput.textContent = currentNum.toString().substring(0,11);}
+        
 
         break;
         case "/":
             if (totalOperatorClicked === 2 )
             {
-                resultNum = parseInt(secondNum) / parseInt(currentNum);
+                resultNum = parseFloat(secondNum) / parseFloat(currentNum);
                 currentNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
     
             }
             else if(totalOperatorClicked >= 3)
             {
-                resultNum = parseInt(resultNum) / parseInt(currentNum);
+                resultNum = parseFloat(resultNum) / parseFloat(currentNum);
                 currentNum = "";
                         
                 userOutput.textContent = resultNum.toString().substring(0,11);  
@@ -415,14 +429,14 @@ function doRunOffCaculations()
         case "+":
             if (totalOperatorClicked === 2 )
             {
-                resultNum = parseInt(currentNum) + parseInt(secondNum);
+                resultNum = parseFloat(currentNum) + parseFloat(secondNum);
                 currentNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
     
             }
             else if(totalOperatorClicked >= 3)
             {
-                resultNum = parseInt(currentNum) + parseInt(resultNum);
+                resultNum = parseFloat(currentNum) + parseFloat(resultNum);
                 currentNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);  
             }
@@ -432,14 +446,14 @@ function doRunOffCaculations()
         case "-":
             if (totalOperatorClicked === 2 )
             {
-                resultNum = parseInt(secondNum) - parseInt(currentNum);
+                resultNum = parseFloat(secondNum) - parseFloat(currentNum);
                 currentNum = "";
                 userOutput.textContent = resultNum.toString().substring(0,11);
     
             }
             else if(totalOperatorClicked >= 3)
             {
-                resultNum = parseInt(resultNum) - parseInt(currentNum);
+                resultNum = parseFloat(resultNum) - parseFloat(currentNum);
                 currentNum = ""; 
                 userOutput.textContent = resultNum.toString().substring(0,11);  
             }
