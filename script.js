@@ -38,6 +38,7 @@ oneButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 twoButton.addEventListener('click',function()
@@ -46,6 +47,7 @@ twoButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 threeButton.addEventListener('click',function()
@@ -54,6 +56,7 @@ threeButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 fourButton.addEventListener('click',function()
@@ -62,6 +65,7 @@ fourButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 fiveButton.addEventListener('click',function()
@@ -70,6 +74,7 @@ fiveButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 sixButton.addEventListener('click',function()
@@ -78,6 +83,7 @@ sixButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 sevenButton.addEventListener('click',function()
@@ -86,6 +92,7 @@ sevenButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 eightButton.addEventListener('click',function()
@@ -94,6 +101,7 @@ eightButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 nineButton.addEventListener('click',function()
@@ -102,6 +110,7 @@ nineButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 zeroButton.addEventListener('click',function()
@@ -110,6 +119,7 @@ zeroButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
+    operatorClickedMoreThanOnce = false;
 });
 
 //Decimal button Function
@@ -119,7 +129,7 @@ decimalButton.addEventListener('click',function()
     currentNum = currentNum + typedInNum;
     capAmountOfNumbers ();
     digitClicked = true;
-
+    operatorClickedMoreThanOnce = false;
 });
 
 
@@ -136,6 +146,7 @@ clearButton.addEventListener('click',function()
     equalsButtonClicked = false;
     equalsButtonClickedMoreThanOnce = false;
     digitClicked = false;
+    operatorClickedMoreThanOnce = false;
 });
 
 
@@ -157,13 +168,14 @@ function capAmountOfNumbers ()
 //Operator Functions///////////////////////////
 let secondNum="";
 let operatorInUse = "";
-
+let operatorClickedMoreThanOnce;
 function addOperator()
 {
     totalOperatorClicked ++;
     equalsButtonClickedMoreThanOnce = false;
     equalsButtonClicked = false;
     digitClicked = false;
+    operatorClickedMoreThanOnce = true;
 
     if (totalOperatorClicked <= 1)
     {
@@ -180,14 +192,19 @@ function addOperator()
 
 multButton.addEventListener('click',function()
 {
-    addOperator();
-    operatorInUse = "x";
-    capAmountOfNumbers ();
-    
-    if(totalOperatorClicked >= 2)
+    if (operatorClickedMoreThanOnce === false)
     {
-    doRunOffCaculations();
+        addOperator();
+        
+        operatorInUse = "x";
+        capAmountOfNumbers ();
+        
+        if(totalOperatorClicked >= 2)
+        {
+        doRunOffCaculations();
+        }
     }
+    else{};
     
 
 });
@@ -198,6 +215,7 @@ divideButton.addEventListener('click',function()
     operatorInUse = "÷"
     capAmountOfNumbers ();
     doRunOffCaculations();
+    
 });
 
 minusButton.addEventListener('click',function()
@@ -234,6 +252,7 @@ equalsButton.addEventListener('click',function()
     //reset total clicks becuase we are not doing run off caculuations. We are using ='s. CHECK LINE 296
     totalOperatorClicked = 0;
     equalsButtonClicked = true;
+    operatorClickedMoreThanOnce = false;
 
 
     //TEST
@@ -243,6 +262,7 @@ equalsButton.addEventListener('click',function()
     console.log(resultNum +" is the result");
     console.log("runOFFCAC is " +runOffCaculationMode);
     console.log("digitCLicked is " + digitClicked);
+    console.log("operator hit more than once" +operatorClickedMoreThanOnce);
 
     switch (operatorInUse) {
         case "x":
@@ -384,6 +404,7 @@ function doRunOffCaculations()
     console.log("runOFFCAC is " +runOffCaculationMode);
     console.log("digitCLicked is " + digitClicked);
     console.log("")
+    console.log("operator hit more than once" +operatorClickedMoreThanOnce);
     
 
     switch (operatorInUse)
@@ -391,14 +412,20 @@ function doRunOffCaculations()
         
 
         case "x":
-        if (totalOperatorClicked === 2 && equalsButtonClicked === false)
+        if (totalOperatorClicked === 2 && equalsButtonClicked === false && secondNum !== "")
         {
             resultNum = parseFloat(currentNum) * parseFloat(secondNum); 
              userOutput.textContent = resultNum.toString().substring(0,11);
             currentNum = "";
 
         }
-        else if(totalOperatorClicked >= 3 && equalsButtonClicked === false )
+        else if (equalsButtonClicked === false && digitClicked === false && secondNum === "")
+        {
+            resultNum = parseFloat(currentNum) * parseFloat(resultNum);        
+            userOutput.textContent = resultNum.toString().substring(0,11);  
+            currentNum = "";
+        }
+        else if(totalOperatorClicked >= 3 && equalsButtonClicked === false)
         {
             resultNum = parseFloat(currentNum) * parseFloat(resultNum);        
             userOutput.textContent = resultNum.toString().substring(0,11);  
